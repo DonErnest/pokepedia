@@ -5,8 +5,9 @@ import 'package:http/http.dart';
 final baseUri = "https://pokeapi.co/api/v2/pokemon/";
 
 
-Future<dynamic> getPokemons(int? page) async {
+Future<(dynamic, bool)> getPokemons(int? page) async {
   var uriStr = baseUri;
+  bool nextAvailable = false;
 
   if (page != null && page != 1) {
     uriStr += "?offset=${20 * page}";
@@ -16,11 +17,15 @@ Future<dynamic> getPokemons(int? page) async {
     final response = await get(uri);
     if (response.statusCode == 200) {
       final dynamic jsonData = jsonDecode(response.body);
-      return jsonData["results"];
+      if (jsonData.get("next") != null) {
+        nextAvailable = true;
+      }
+      return (jsonData["results"], nextAvailable);
     }
   } catch (error) {
-    return null;
+    return (null, false);
   }
+  return (null, false);
 }
 
 

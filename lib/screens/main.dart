@@ -15,23 +15,26 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int page = 1;
+  bool nextAvailable = false;
   List<PokemonDisplay> pokemons = [];
   bool isFetching = true;
   late final ScrollController _scrollController;
 
   Future<void> fetchPokemons() async {
-    var newPokemons = await downLoadPokemons(page);
+    var (newPokemons, nextPresent) = await downLoadPokemons(page);
     setState(() {
       pokemons += newPokemons;
+      nextAvailable = nextPresent;
       isFetching = false;
     });
   }
 
   void fetchOnEndScroll() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent && !_scrollController.position.outOfRange) {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange && nextAvailable) {
       page += 1;
       fetchPokemons();
-      print("fetched more");
     }
   }
 
