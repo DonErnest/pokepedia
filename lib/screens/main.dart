@@ -27,16 +27,19 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  void FetchOnEndScroll() {
-    page += 1;
-    fetchPokemons();
+  void fetchOnEndScroll() {
+    if (_scrollController.offset >= _scrollController.position.maxScrollExtent && !_scrollController.position.outOfRange) {
+      page += 1;
+      fetchPokemons();
+      print("fetched more");
+    }
   }
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _scrollController.addListener(FetchOnEndScroll);
+    _scrollController.addListener(fetchOnEndScroll);
     fetchPokemons();
   }
 
