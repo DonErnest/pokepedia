@@ -24,8 +24,8 @@ Future<dynamic> getPokemons(int? page) async {
 }
 
 
-Future<dynamic> getPokemon(int id) async {
-  final uri = Uri.parse("${baseUri}${id}");
+Future<dynamic> getPokemon(String uriStr) async {
+  final uri = Uri.parse(uriStr);
   try {
     final response = await get(uri);
     if (response.statusCode == 200) {
