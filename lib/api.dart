@@ -17,7 +17,7 @@ Future<(dynamic, bool)> getPokemons(int? page) async {
     final response = await get(uri);
     if (response.statusCode == 200) {
       final dynamic jsonData = jsonDecode(response.body);
-      if (jsonData.get("next") != null) {
+      if (jsonData["next"] != null) {
         nextAvailable = true;
       }
       return (jsonData["results"], nextAvailable);

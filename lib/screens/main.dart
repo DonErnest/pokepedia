@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
     if (pokemon != null) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (ctx) => PokemonDetails(pokemon: pokemon)),
+        MaterialPageRoute(builder: (ctx) => PokemonDetails(pokemon: pokemon,)),
       );
     }
   }
@@ -59,13 +59,14 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return ScreenCanvas(
+      appBarActions: [],
       widgets: [
         Expanded(
           child: ListView.builder(
             itemBuilder:
                 (ctx, idx) => Card(
                   child: ListTile(
-                    title: Text(pokemons[idx].name),
+                    title: Text(pokemons[idx].name.toUpperCase()),
                     onTap: () => checkDetails(pokemons[idx].url),
                   ),
                 ),

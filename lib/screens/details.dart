@@ -5,11 +5,22 @@ import 'package:pokepedia/widgets/canvas.dart';
 class PokemonDetails extends StatelessWidget {
   final PokemonDetail pokemon;
 
-  const PokemonDetails({super.key, required this.pokemon});
+  const PokemonDetails({
+    super.key,
+    required this.pokemon,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ScreenCanvas(
+      appBarActions: [
+        IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_outlined),
+        ),
+      ],
       widgets: [
         SizedBox(height: 20),
         Text(pokemon.name.toUpperCase(), style: TextStyle(fontSize: 30)),
@@ -64,7 +75,7 @@ class PokemonDetails extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
-              Spacer(flex: 1,),
+              Spacer(flex: 1),
               Expanded(
                 flex: 3,
                 child: Text(
@@ -88,7 +99,7 @@ class PokemonDetails extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
-              Spacer(flex: 1,),
+              Spacer(flex: 1),
               Expanded(
                 flex: 3,
                 child: Text(
